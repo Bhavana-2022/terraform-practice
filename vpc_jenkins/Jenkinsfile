@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages{
+        stage('vcs') {
+            steps {
+                git url: 'https://github.com/divyakothuru311/terraform-tasks.git',
+                       branch: 'main'
+            }
+        }
+        stage('create vpc via terraform') {
+            steps {
+                sh 'terraform init'
+                sh 'terraform validate'
+                sh 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
